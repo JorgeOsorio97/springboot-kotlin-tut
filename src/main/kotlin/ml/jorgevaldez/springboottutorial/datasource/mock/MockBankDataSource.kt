@@ -10,7 +10,7 @@ class MockBankDataSource : BankDataSource {
     val banks =  mutableListOf(
         Bank("1234", 3.14, 17),
         Bank("1010", 17.0, 0),
-        Bank("1234", 0.0, 100),
+        Bank("12345", 0.0, 100),
     )
 
     override fun retrieveBanks(): Collection<Bank> = banks
@@ -25,4 +25,16 @@ class MockBankDataSource : BankDataSource {
         banks.add(bank)
         return bank
     }
+
+    override fun updateBank(bank: Bank): Bank {
+        val currentObject = banks.firstOrNull{ it.accountNumber==bank.accountNumber }
+            ?: throw NoSuchElementException("Could not find a bank with account number ${bank.accountNumber}")
+
+        banks.remove(currentObject)
+        banks.add(bank)
+
+        return bank
+    }
+
+
 }
