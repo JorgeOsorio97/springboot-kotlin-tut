@@ -1,7 +1,5 @@
 package ml.jorgevaldez.springboottutorial.controller
 
-import ml.jorgevaldez.springboottutorial.datasource.BankDataSource
-import ml.jorgevaldez.springboottutorial.datasource.mock.MockBankDataSource
 import ml.jorgevaldez.springboottutorial.model.Bank
 import ml.jorgevaldez.springboottutorial.service.BankService
 import org.springframework.http.HttpStatus
@@ -33,4 +31,8 @@ class BankController(private val bankService: BankService) {
 
     @PatchMapping
     fun updateBank(@RequestBody bank: Bank): Bank = bankService.updateBank(bank)
+
+    @DeleteMapping("/{accountNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteBank(@PathVariable accountNumber: String): Unit = bankService.deleteBank(accountNumber)
 }
